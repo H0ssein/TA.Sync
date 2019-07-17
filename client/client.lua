@@ -1,6 +1,6 @@
--- 		 LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
---		Every 5 Minutes, count player total and update the calculation		--
---			By DK - 2019			...	Dont forget your Bananas!			--
+--	  LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
+--	Every 5 Minutes, count player total and update the calculation		--
+--		By DK - 2019...	Dont forget your Bananas!			--
 ------------------------------------------------------------------------------
 
 --[[ Loading ESX Object Dependancies ]]--
@@ -17,11 +17,11 @@ end)
 
 ------------------------------------------------------------------------------
 
--- The math is, ( ( (Config.Amount of Players * 2.25 ) - Config.Static Number) / Config.Into One thousand)
+-- The math is, (( Config.PopulationNumber - (Config.Players * 2.25 )) / Config.1000)  =  0.3880 or less
 -- The deal is to reduce the overal feel of the city as the player population is introduced.
 		
 -- The natives take a [0 as nothing, 1 as normal, 2 as doubled etc] value. 
--- So why not make it like 0.102324232834763725467182713618 @ 128 Players
+-- So why not make it like 0.10 @ 128 Players??
 
 ------------------------------------------------------------------------------
 
@@ -30,29 +30,27 @@ end)
 Citizen.CreateThread(function()
 	local PlayerPed = GetPlayerPed(-1)
 	local iPlayer 	= GetEntityCoords(PlayerPed, true)
-	local 
 	
-	while true do														-- Every Frame!
+	while true do		-- Every Frame!
 		SetVehicleDensityMultiplierThisFrame((Config['TrafficX'] - Config['iPlayers']) / Config['Divider'])
 		SetPedDensityMultiplierThisFrame((Config['PedestrianX'] - Config['iPlayers']) / Config['Divider'])
 		SetRandomVehicleDensityMultiplierThisFrame((Config['TrafficX'] - Config['iPlayers']) / Config['Divider'])
 		SetParkedVehicleDensityMultiplierThisFrame((Config['ParkedX'] - Config['iPlayers']) / Config['Divider'])
 		SetScenarioPedDensityMultiplierThisFrame((Config['PedestrianX'] - Config['iPlayers']) / Config['Divider']), ((Config['PedestrianX'] - Config['iPlayers']) / Config.[Divider])				
-		ClearAreaOfCops(iPlayer['x'] iPlayer['y'] iPlayer['z'], 5000.0)			-- To Ensure Police dont spawn.	
+		ClearAreaOfCops(iPlayer['x'] iPlayer['y'] iPlayer['z'], 5000.0)
 		RemoveVehiclesFromGeneratorsInArea(iPlayer['x'] - 35.0, iPlayer['y'] - 35.0, iPlayer['z'] - 35.0, iPlayer['x'] + 35.0, iPlayer['y'] + 35.0, iPlayer['z'] + 35.0);
 		SetGarbageTrucks(0)
 		SetRandomBoats(0)
-		SetPoliceIgnorePlayer(PlayerPed, true)
-		Citizen.Wait(0)
+		Citizen.Wait(0)	-- Every Frame!
 	end
 end)
 
 Citizen.CreateThread(function()
-	while true do
+	while true do		-- Every Frame!
 		for i = 1, 15 do													-- For all gangs and emergancy services.	
-			EnableDispatchService(i, Config['Dispatch'])						-- Disable responding/dispatch.
+			EnableDispatchService(i, Config['Dispatch'])	-- Disable responding/dispatch.
 		end	
-		Citizen.Wait(0)		
+		Citizen.Wait(0)	-- Every Frame!	
 	end
 end)
 
@@ -60,26 +58,9 @@ end)
 
 ------------------------------------------------------------------------------
 
-RegisterNetEvent('LosOce_TA:Force')
-AddEventHandler('LosOce_TA:Force', function(xPlayers)
-	local xPlayers  = ESX.GetPlayers()
-	local iPlayer   = PlayerID()
-	
-	for _, v in pairs(xPlayers) do
-		if xPlayers.v == iPlayer then
-			Check()
-		end
-	end
+function Check()			-- Tell that Global Variable to be beautiful.
 
-end)
-
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-
-function Check()								-- Tell that Global Variable to be beautiful.
-
-	local Multiplier = 0						-- Player Count.
+	local Multiplier = 0		-- Player Count.
 
 	for i in ipairs(GetActivePlayers()) do
 		local iPed = GetPlayerPed(i)
@@ -99,3 +80,20 @@ function Check()								-- Tell that Global Variable to be beautiful.
 	end	
 	
 end
+	
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+
+RegisterNetEvent('LosOce_TA:Force')
+AddEventHandler('LosOce_TA:Force', function(xPlayers)
+	local xPlayers  = ESX.GetPlayers()
+	local iPlayer   = PlayerID()
+	
+	for _, v in ipairs(xPlayers) do
+		if xPlayers.v == iPlayer then
+			Check()
+		end return
+	end
+
+end)
