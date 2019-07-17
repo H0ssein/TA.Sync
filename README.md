@@ -56,4 +56,4 @@ This project is licensed under the GNU v3.0 License - see the [LICENSE.md](LICEN
 
 ## Acknowledgments
 
-* The Original Auther of the cron - ??? (Luff You)
+* [ESX-Org/cron](https://github.com/ESX-Org/cron) - All Contributers
