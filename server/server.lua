@@ -15,9 +15,8 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 ------------------------------------------------------------------------------
 
-function ServerTrigger(hour, minute, callback)
+function ServerTrigger(day, hour, minute)
 	local xPlayers  = ESX.GetPlayers()
-	local callback = callback
 
 	for i=1, #xPlayers, 1 do
 		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])		
@@ -26,7 +25,7 @@ function ServerTrigger(hour, minute, callback)
 		end 
 	end
 	
-	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. M: '..callback..'. | : [^1Alert^0] ')
+	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
 end
 
 ------------------------------------------------------------------------------
