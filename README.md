@@ -52,7 +52,7 @@ Note: Do not let the overall final number be below 0.0!
 
 ## License
 
-This project is licensed under the GNU v3.0 License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU v3.0 License - see the [LICENSE.md](LICENSE) file for details
 
 ## Acknowledgments
 
