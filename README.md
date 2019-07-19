@@ -30,6 +30,8 @@ start es_extended
 start LosOce_TA
 ```
 
+**Note: This particular script doesnt actually need ESX. I just have it in as default on all my scripts becasue I use it's framework from time to time. 
+
 ## The Config.lua
 
 The only place you should need to edit unless you want to modify the entire thing to your liking.
