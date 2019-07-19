@@ -1,6 +1,6 @@
--- 		 LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		   --
---		Every 5 Minutes, count player total and update the calculation		 --
---			By DK - 2019...	Dont forget your Bananas!			         --
+-- 		 LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
+--		Every 5 Minutes, count player total and update the calculation		--
+--			By DK - 2019			...	Dont forget your Bananas!			--
 ------------------------------------------------------------------------------
 
 Config = {}					-- My Ideal Max Numbers
