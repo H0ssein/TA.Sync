@@ -1,6 +1,6 @@
 -- 		 LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
 --		Every 5 Minutes, count player total and update the calculation		--
---			By DK - 2019			...	Dont forget your Bananas!			--
+--			By DK - 2019...	Dont forget your Bananas!			--
 ------------------------------------------------------------------------------
 
 --[[ Loading ESX Object Dependancies ]]--
@@ -12,24 +12,16 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 --[[ ESX Loaded - Generate Code Below ]]--
 
 ------------------------------------------------------------------------------
-
+--	FUNctions																--
 ------------------------------------------------------------------------------
 
 function ServerTrigger(day, hour, minute)
-	local xPlayers  = ESX.GetPlayers()
-
-	for i=1, #xPlayers, 1 do
-		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])		
-		if NetworkIsPlayerActive == true then
-			TriggerEvent('LosOce_TA:Force')
-		end 
-	end
-	
+	TriggerEvent('LosOce_TA:Force')
 	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
 end
 
 ------------------------------------------------------------------------------
-
+--	TriggerEvents															--
 ------------------------------------------------------------------------------
 
 TriggerEvent('LosOce_Cron:Schedule', 12, 05, ServerTrigger)	-- Every Increment of Five Minutes.
@@ -189,7 +181,7 @@ TriggerEvent('LosOce_Cron:Schedule', 11, 55, ServerTrigger)	--
 TriggerEvent('LosOce_Cron:Schedule', 12, 00, ServerTrigger)	--
 
 print('	^0[^5Debug^0] : | Added TrafficAdjust Cron(s) to the Queue [Every 5 minutes]. | : [^5Debug^0]')
-
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
+print('	^0[^5Debug^0] : | Players Counted 	= '..Config.iPlayers..'. | : [^5Debug^0]')
+print('	^0[^5Debug^0] : | Total Traffic 	= '..Config.TrafficX..'. | : [^5Debug^0]')
+print('	^0[^5Debug^0] : | Parked Traffic 	= '..Config.ParkedX..'. | : [^5Debug^0]')	
+print('	^0[^5Debug^0] : | Total Peds 		= '..Config.PedestrianX..'. | : [^5Debug^0]')
