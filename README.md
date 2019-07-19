@@ -30,7 +30,7 @@ start es_extended
 start LosOce_TA
 ```
 
-**Note: This particular script doesnt actually need ESX. I just have it in as default on all my scripts becasue I use it's framework from time to time. 
+**Note: This particular script doesnt actually need ESX. I just have it there by default.**
 
 ## The Config.lua
 
