@@ -29,9 +29,12 @@ end)
 ------------------------------------------------------------------------------
 
 Citizen.CreateThread(function()
-	local iPlayer = GetEntityCoords(PlayerPedId())
+	local iPlayer = GetEntityCoords(PlayerPedId())	-- Your Ped as an Entity. Vector3 (x,y,z)
+	local iPlayerID = GetPlayerServerId()			-- Your Ped's ID.
 	
-	while Config.Switch == true do
+	DisablePlayerVehicleRewards(iPlayerID)		-- Call it once.
+	
+	while Config.Switch == true do				-- Call it all...
 		Citizen.Wait(0)							-- Every Frame!
 		for i = 0, 15 do						-- For all gangs and emergancy services.	
 			EnableDispatchService(i, Config.Dispatch)		-- Disable responding/dispatch.
@@ -57,7 +60,7 @@ function Check()			-- Tell that Global Variable to be beautiful.
 	Config.Switch = false
 	local Multiplier = 0		-- Player Count.
 
-	for i in ipairs(GetActivePlayers()) do
+	for _,i in ipairs(GetActivePlayers()) do
 		local iPed = GetPlayerPed(i)
 
 		if DoesEntityExist(iPed) then
