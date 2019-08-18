@@ -12,10 +12,10 @@ To deduct the overall AI population/density based on a player count.
 
 ## Prerequisites
 
-* LosOce_Cron
+* [LosOce_Cron](https://github.com/DK-DonnieKongy/LosOce_Cron) 
 
 ```
-start [LosOce_Cron](https://github.com/DK-DonnieKongy/LosOce_Cron) 
+start LosOce_Cron
 start LosOce_TA
 ```
 
