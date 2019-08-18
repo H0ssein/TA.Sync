@@ -12,28 +12,12 @@ To deduct the overall AI population/density based on a player count.
 
 ## Prerequisites
 
-* essentailmode
-* es_extended
 * LosOce_Cron
 
-As with all thing ESX, please ensure you have loaded your essentialmode and es_extended in the correct order.
-From there you need to make sure my little rendition of Cron is running as it uses a 12 hour system, not 24.
-
 ```
-start LosOce_Cron
-...
-
-start essentialmode
-...
-
-start es_extended
-...
-
+start [LosOce_Cron](https://github.com/DK-DonnieKongy/LosOce_Cron) 
 start LosOce_TA
 ```
-
-**Note: This particular script doesnt actually need ESX. I just have it there by default.**
-
 
 ## The Config.lua
 
