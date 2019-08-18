@@ -2,20 +2,6 @@
 --	Every 5 Minutes, count player total and update the calculation		--
 --		By DK - 2019...	Dont forget your Bananas!			--
 ------------------------------------------------------------------------------
-
---[ Loading ESX Object Dependancies ]--
-
-ESX = nil
-
-Citizen.CreateThread(function()
-		while ESX == nil do
-			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-			Citizen.Wait(250)
-		end
-end)
-
---[ ESX Loaded - Generate Code Below ]--
-
 ------------------------------------------------------------------------------
 
 -- The math is, (( Config.PopulationNumber - (Config.Players * 2.25 )) / Config.1000)  =  0.3880 or less
@@ -25,7 +11,7 @@ end)
 -- So why not make it like 0.10 @ 128 Players??
 
 ------------------------------------------------------------------------------
---	ThreadFUNctions															--
+-- Threads														--
 ------------------------------------------------------------------------------
 
 Citizen.CreateThread(function()
@@ -52,7 +38,7 @@ Citizen.CreateThread(function()
 end)
 
 ------------------------------------------------------------------------------
---	FUNctions																--
+-- Functions																--
 ------------------------------------------------------------------------------
 
 function Check()			-- Tell that Global Variable to be beautiful.
@@ -77,7 +63,7 @@ function Check()			-- Tell that Global Variable to be beautiful.
 end
 	
 ------------------------------------------------------------------------------
---	ReigsterClientEvents													--
+-- Events													--
 ------------------------------------------------------------------------------
 
 RegisterNetEvent('LosOce_TA:Force')
