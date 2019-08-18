@@ -3,16 +3,8 @@
 --			By DK - 2019...	Dont forget your Bananas!			--
 ------------------------------------------------------------------------------
 
---[[ Loading ESX Object Dependancies ]]--
-
-ESX = nil
-
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-
---[[ ESX Loaded - Generate Code Below ]]--
-
 ------------------------------------------------------------------------------
---	FUNctions																--
+-- Functions																--
 ------------------------------------------------------------------------------
 
 function ServerTrigger(day, hour, minute)
@@ -21,7 +13,7 @@ function ServerTrigger(day, hour, minute)
 end
 
 ------------------------------------------------------------------------------
---	TriggerEvents															--
+-- Events															--
 ------------------------------------------------------------------------------
 
 TriggerEvent('LosOce_Cron:Schedule', 12, 05, ServerTrigger)	-- Every Increment of Five Minutes.
