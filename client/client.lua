@@ -67,6 +67,6 @@ end
 ------------------------------------------------------------------------------
 
 RegisterNetEvent('LosOce_TA:Force')
-AddEventHandler('LosOce_TA:Force', function()
-	Check()
+AddEventHandler('LosOce_TA:Force', function(count)
+
 end)

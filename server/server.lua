@@ -7,8 +7,28 @@
 -- Functions																--
 ------------------------------------------------------------------------------
 
+function Check()			-- Tell that Global Variable to be beautiful.
+
+	Config.Switch = false
+	local Multiplier = 0		-- Player Count.
+
+	for _,i in ipairs(GetPlayers()) do
+		local iPed = GetPlayerPed(i)
+		if DoesEntityExist(iPed) then
+			Multiplier = Multiplier + 1
+		end
+	end
+		
+	if Multiplier ~= 0 then
+		Config.iPlayers = Config.Static * Multiplier
+	end	
+
+	Wait(100)
+	Config.Switch = true
+end
+
 function ServerTrigger(day, hour, minute)
-	TriggerEvent('LosOce_TA:Force')
+	TriggerEvent('LosOce_TA:Force', count)
 	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
 end
 
