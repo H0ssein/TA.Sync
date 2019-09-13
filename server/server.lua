@@ -7,7 +7,7 @@
 -- Global Variables
 ------------------------------------------------------------------------------
 
-
+AddEventHandler('playerConnecting', OnConnection)
 
 ------------------------------------------------------------------------------
 -- Local Variables
@@ -16,8 +16,12 @@
 
 
 ------------------------------------------------------------------------------
--- Functions
+-- Local Functions
 ------------------------------------------------------------------------------
+
+function OnConnection()
+	Config.PlayerConnected = true
+end
 
 function CountingPlayers()
 	local Multiplier = 0
@@ -31,6 +35,7 @@ function CountingPlayers()
 			end
 		end
 	else
+		Config.PlayerConnected = false
 		count = 0
 	end
 
@@ -44,13 +49,15 @@ function CountingPlayers()
 end
 
 function ServerTrigger(day, hour, minute)
-	CountingPlayers()
-	if (Config.Switch ~= true) then
-		Config.Switch = true
+	if (Config.PlayerConnected ~= false) then
+		CountingPlayers()
+		if (Config.Switch ~= true) then
+			Config.Switch = true
+		end
 	end
 	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
 	print('	^0[^5Debug^0] : | Amount Deducted = '..Config.iPlayers..'. | : [^5Debug^0]')
-	print('	^0[^5Debug^0] : | Current Traffic = '..Config.TrafficX ..'. | : [^5Debug^0]')
+	print('	^0[^5Debug^0] : | Current Traffic = '..(Config.PedestrianX - Config.iPlayers)..'. | : [^5Debug^0]')
 end
 
 ------------------------------------------------------------------------------

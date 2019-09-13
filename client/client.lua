@@ -18,8 +18,7 @@
 -- Functions
 ------------------------------------------------------------------------------
 
-function CountOfPlayers(count)
-	local Server = count
+function CountOfPlayers()
 	local Client = 0
 	
 	for _,v in ipairs(GetActivePlayers()) do 
@@ -35,7 +34,7 @@ end
 
 AddEventHandler('TrafficA:Switch', function(count)
 	local Server = count
-	local Client = CountOfPlayers(count)
+	local Client = CountOfPlayers()
 	
 	if (count ~= nil) then
 		
@@ -43,8 +42,8 @@ AddEventHandler('TrafficA:Switch', function(count)
 			Config.Switch = false
 		end
 		
-		print('Traffic Amended Locally.')
-		print('Server Count:'..Server..' || Client Count:'..Client)
+		log('Traffic Amended Locally.')
+		log('Server Count:'..Server..' || Client Count:'..Client)
 	end
 
 end)
@@ -54,15 +53,15 @@ end)
 ------------------------------------------------------------------------------
 
 Citizen.CreateThread(function()
-	local iPlayer = GetEntityCoords(PlayerPedId())	-- Your Ped as an Entity. Vector3 (x,y,z)
-	local iPlayerID = GetPlayerServerId()			-- Your Ped's ID.
+	local iPlayer = GetEntityCoords(PlayerPedId())		-- Your Ped as an Entity. Vector3 (x,y,z)
+	local iPlayerID = GetPlayerServerId()				-- Your Ped's ID.
 	
-	DisablePlayerVehicleRewards(iPlayerID)		-- Call it once.
+	DisablePlayerVehicleRewards(iPlayerID)				-- Call it once.
 	
-	while Config.Switch == true do				-- Call it all...
-		Citizen.Wait(0)							-- Every Frame!
-		for i = 0, 15 do						-- For all gangs and emergancy services.	
-			EnableDispatchService(i, Config.Dispatch)		-- Disable responding/dispatch.
+	while Config.Switch == true do						-- Call it all...
+		Citizen.Wait(0)									-- Every Frame!
+		for i = 0, 15 do								-- For all gangs and emergancy services.	
+			EnableDispatchService(i, Config.Dispatch)	-- Disable responding/dispatch.
 		end			
 		SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
 		SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)

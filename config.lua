@@ -11,10 +11,8 @@ Config.iPlayers				= 0		-- 				-- See Client.Lua for the Calculation.
 Config.Static				= 2.25	-- 				-- I believe 2.25 will be ideal for 128 slots. (-288)
 Config.Dispatch 			= false -- 				-- Or True???
 Config.Switch 				= true	-- Magic		-- Real magic
+Config.PlayerConnected		= false
 
 ------------------------------------------------------------------------------
 
-Config.VehicleBlacklist = {
-
-
-}
+Config.VehicleBlacklist = {}
