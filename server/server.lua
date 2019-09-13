@@ -20,17 +20,20 @@
 ------------------------------------------------------------------------------
 
 function CountingPlayers()
-	local Players = GetPlayers()
 	local Multiplier = 0
 	local count = 0
-
-	for i = 1, #Players do
-	    local xPlayer = GetPlayerPed(Players[i])
 	
-		if DoesEntityExist(xPlayer[i]) then
-			Multiplier = Multiplier + 1
+	if (GetPlayers() ~= nil) then
+		for _,v in pairs(GetPlayers()) do
+		   local iPed = GetPlayerPed(v)
+			if DoesEntityExist(iPed) then
+				Multiplier = Multiplier + 1
+			end
 		end
+	else
+		count = 0
 	end
+
 	if Multiplier ~= 0 then
 		Config.iPlayers = Config.Static * Multiplier
 	end
@@ -42,17 +45,17 @@ end
 
 function ServerTrigger(day, hour, minute)
 	CountingPlayers()
+	if (Config.Switch ~= true) then
+		Config.Switch = true
+	end
 	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
-	print('	^0[^5Debug^0] : | Players Counted 	= '..Config.iPlayers..'. | : [^5Debug^0]')
+	print('	^0[^5Debug^0] : | Amount Deducted = '..Config.iPlayers..'. | : [^5Debug^0]')
+	print('	^0[^5Debug^0] : | Current Traffic = '..Config.TrafficX ..'. | : [^5Debug^0]')
 end
 
 ------------------------------------------------------------------------------
 -- Events
 ------------------------------------------------------------------------------
-
-AddEventHandler('TrafficA:PrintDifferance', Server, Client)
-	print('	^0[^5Debug^0] : | Server = '..Server..' : Client = '..Client..' | : [^5Debug^0]')
-end
 
 TriggerEvent('LosOce_Cron:Schedule', 12, 05, ServerTrigger)	-- Every Increment of Five Minutes.
 TriggerEvent('LosOce_Cron:Schedule', 12, 10, ServerTrigger)	-- 

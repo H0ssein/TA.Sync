@@ -25,8 +25,8 @@ function CountOfPlayers(count)
 	for _,v in ipairs(GetActivePlayers()) do 
 		Client = Client + 1
 	end
-
-	TriggerServerEvent('TrafficA:PrintDifferance', Server, Client)
+	
+	return Client
 end
 
 ------------------------------------------------------------------------------
@@ -34,18 +34,17 @@ end
 ------------------------------------------------------------------------------
 
 AddEventHandler('TrafficA:Switch', function(count)
-	local CheckClient = CountOfPlayers(count)
+	local Server = count
+	local Client = CountOfPlayers(count)
 	
 	if (count ~= nil) then
 		
-		if (Config.Switch = true) then
-			(Config.Switch = false)
-				Citizen.Wait(100)
-			(Config.Switch = true)
+		if Config.Switch then
+			Config.Switch = false
 		end
 		
 		print('Traffic Amended Locally.')
-	
+		print('Server Count:'..Server..' || Client Count:'..Client)
 	end
 
 end)
