@@ -1,17 +1,57 @@
---	  LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
---	Every 5 Minutes, count player total and update the calculation		--
---		By DK - 2019...	Dont forget your Bananas!			--
-------------------------------------------------------------------------------
+--			Traffic Apendix | Alter Traffic and Vechile Spawns				--
+--				By DK - 2019...	Dont forget your Bananas!					--
 ------------------------------------------------------------------------------
 
--- The math is, (( Config.PopulationNumber - (Config.Players * 2.25 )) / Config.1000)  =  0.3880 or less
--- The deal is to reduce the overal feel of the city as the player population is introduced.
+------------------------------------------------------------------------------
+-- Global Variables
+------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+-- Local Variables
+------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+-- Functions
+------------------------------------------------------------------------------
+
+function CountOfPlayers(count)
+	local Server = count
+	local Client = 0
+	
+	for _,v in ipairs(GetActivePlayers()) do 
+		Client = Client + 1
+	end
+
+	TriggerServerEvent('TrafficA:PrintDifferance', Server, Client)
+end
+
+------------------------------------------------------------------------------
+-- Events
+------------------------------------------------------------------------------
+
+AddEventHandler('TrafficA:Switch', function(count)
+	local CheckClient = CountOfPlayers(count)
+	
+	if (count ~= nil) then
 		
--- The natives take a .0 as nothing, 1 as normal, 2 as doubled etc value. 
--- So why not make it like 0.10 @ 128 Players??
+		if (Config.Switch = true) then
+			(Config.Switch = false)
+				Citizen.Wait(100)
+			(Config.Switch = true)
+		end
+		
+		print('Traffic Amended Locally.')
+	
+	end
+
+end)
 
 ------------------------------------------------------------------------------
--- Threads														--
+-- Threads
 ------------------------------------------------------------------------------
 
 Citizen.CreateThread(function()
@@ -38,35 +78,3 @@ Citizen.CreateThread(function()
 end)
 
 ------------------------------------------------------------------------------
--- Functions																--
-------------------------------------------------------------------------------
-
-function Check()			-- Tell that Global Variable to be beautiful.
-
-	Config.Switch = false
-	local Multiplier = 0		-- Player Count.
-
-	for _,i in ipairs(GetActivePlayers()) do
-		local iPed = GetPlayerPed(i)
-
-		if DoesEntityExist(iPed) then
-			Multiplier = Multiplier + 1
-		end
-	end
-		
-	if Multiplier ~= 0 then
-		Config.iPlayers = Config.Static * Multiplier
-	end	
-
-	Wait(100)
-	Config.Switch = true
-end
-	
-------------------------------------------------------------------------------
--- Events													--
-------------------------------------------------------------------------------
-
-RegisterNetEvent('LosOce_TA:Force')
-AddEventHandler('LosOce_TA:Force', function()
-	Check()
-end)

@@ -1,20 +1,58 @@
--- 		 LosOceanic_TA =  Traffic / Pedestrian / Parked Cars Adjuster		--
---		Every 5 Minutes, count player total and update the calculation		--
---			By DK - 2019...	Dont forget your Bananas!			--
+--			Traffic Apendix | Alter Traffic and Vechile Spawns				--
+--				By DK - 2019...	Dont forget your Bananas!					--
 ------------------------------------------------------------------------------
 
+
 ------------------------------------------------------------------------------
--- Functions																--
+-- Global Variables
 ------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+-- Local Variables
+------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+-- Functions
+------------------------------------------------------------------------------
+
+function CountingPlayers()
+	local Players = GetPlayers()
+	local Multiplier = 0
+	local count = 0
+
+	for i = 1, #Players do
+	    local xPlayer = GetPlayerPed(Players[i])
+	
+		if DoesEntityExist(xPlayer[i]) then
+			Multiplier = Multiplier + 1
+		end
+	end
+	if Multiplier ~= 0 then
+		Config.iPlayers = Config.Static * Multiplier
+	end
+	
+	count = Config.iPlayers
+
+	TriggerClientEvent('TrafficA:Switch', count)
+end
 
 function ServerTrigger(day, hour, minute)
-	TriggerEvent('LosOce_TA:Force')
+	CountingPlayers()
 	print('	^0[^1Alert^0] : | Cron Job: Syncing Client Traffic. H:'..hour..', M: '..minute..'. | : [^1Alert^0] ')
+	print('	^0[^5Debug^0] : | Players Counted 	= '..Config.iPlayers..'. | : [^5Debug^0]')
 end
 
 ------------------------------------------------------------------------------
--- Events															--
+-- Events
 ------------------------------------------------------------------------------
+
+AddEventHandler('TrafficA:PrintDifferance', Server, Client)
+	print('	^0[^5Debug^0] : | Server = '..Server..' : Client = '..Client..' | : [^5Debug^0]')
+end
 
 TriggerEvent('LosOce_Cron:Schedule', 12, 05, ServerTrigger)	-- Every Increment of Five Minutes.
 TriggerEvent('LosOce_Cron:Schedule', 12, 10, ServerTrigger)	-- 
@@ -172,8 +210,6 @@ TriggerEvent('LosOce_Cron:Schedule', 11, 50, ServerTrigger)	--
 TriggerEvent('LosOce_Cron:Schedule', 11, 55, ServerTrigger)	--
 TriggerEvent('LosOce_Cron:Schedule', 12, 00, ServerTrigger)	--
 
-print('	^0[^5Debug^0] : | Added TrafficAdjust Cron(s) to the Queue [Every 5 minutes]. | : [^5Debug^0]')
-print('	^0[^5Debug^0] : | Players Counted 	= '..Config.iPlayers..'. | : [^5Debug^0]')
-print('	^0[^5Debug^0] : | Total Traffic 	= '..Config.TrafficX..'. | : [^5Debug^0]')
-print('	^0[^5Debug^0] : | Parked Traffic 	= '..Config.ParkedX..'. | : [^5Debug^0]')	
-print('	^0[^5Debug^0] : | Total Peds 		= '..Config.PedestrianX..'. | : [^5Debug^0]')
+-- print('	^0[^5Debug^0] : | Added TrafficAdjust Cron(s) to the Queue [Every 5 minutes]. | : [^5Debug^0]')
+
+------------------------------------------------------------------------------
