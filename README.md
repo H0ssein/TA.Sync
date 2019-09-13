@@ -4,7 +4,7 @@ Traffic Sync : Traffic Adjust, Automated deductions based on player count | Clie
 
 ### Hypothosis
 
-
+Every Minute the clients count how many people are in the server and all adjust how mant cars, peds and other things there are.
 
 ## Prerequisites
 
