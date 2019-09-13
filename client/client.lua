@@ -1,77 +1,85 @@
---			Traffic Apendix | Alter Traffic and Vechile Spawns				--
+--			Traffic Sync | Alter Traffic and Vechile Spawns					--
 --				By DK - 2019...	Dont forget your Bananas!					--
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
--- Global Variables
+--	Global Variables
 ------------------------------------------------------------------------------
 
 
 
 ------------------------------------------------------------------------------
--- Local Variables
+--	Local Variables
 ------------------------------------------------------------------------------
 
 
 
 ------------------------------------------------------------------------------
--- Functions
+--	Functions
 ------------------------------------------------------------------------------
 
-function CountOfPlayers()
-	local Client = 0
+function Clients()
+	Count = 0
+	Config.iPlayers = 0	
+	Config.Switch = false
 	
-	for _,v in ipairs(GetActivePlayers()) do 
-		Client = Client + 1
+	for _,v in ipairs(GetActivePlayers()) do
+		Count = Count + 1
+
 	end
+
+	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Count '..Count)
 	
-	return Client
+	if (Count ~= nil) then
+		Config.iPlayers = (Count * Config.Static)
+	end
+
+	Wait(100)
+	Config.Switch = true
+	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Deductions '..Config.iPlayers)
+	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Traffic now @  '..(Config.TrafficX - Config.iPlayers))
 end
 
 ------------------------------------------------------------------------------
--- Events
+--	Events
 ------------------------------------------------------------------------------
 
-AddEventHandler('TrafficA:Switch', function(count)
-	local Server = count
-	local Client = CountOfPlayers()
-	
-	if (count ~= nil) then
-		
-		if Config.Switch then
-			Config.Switch = false
-		end
-		
-		log('Traffic Amended Locally.')
-		log('Server Count:'..Server..' || Client Count:'..Client)
-	end
 
-end)
 
 ------------------------------------------------------------------------------
--- Threads
+--	Threads
 ------------------------------------------------------------------------------
 
 Citizen.CreateThread(function()
-	local iPlayer = GetEntityCoords(PlayerPedId())		-- Your Ped as an Entity. Vector3 (x,y,z)
-	local iPlayerID = GetPlayerServerId()				-- Your Ped's ID.
+	local iPlayer = GetEntityCoords(PlayerPedId())			-- Your Ped as an Entity. Vector3 (x,y,z)
+	local iPlayerID = GetPlayerServerId()					-- Your Ped's ID.
+	DisablePlayerVehicleRewards(iPlayerID)					-- Call it once.
 	
-	DisablePlayerVehicleRewards(iPlayerID)				-- Call it once.
-	
-	while Config.Switch == true do						-- Call it all...
-		Citizen.Wait(0)									-- Every Frame!
-		for i = 0, 15 do								-- For all gangs and emergancy services.	
-			EnableDispatchService(i, Config.Dispatch)	-- Disable responding/dispatch.
-		end			
-		SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
-		SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)
-		SetRandomVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
-		SetParkedVehicleDensityMultiplierThisFrame((Config.ParkedX - Config.iPlayers) / Config.Divider)
-		SetScenarioPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider, (Config.PedestrianX - Config.iPlayers) / Config.Divider)
-		ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
-		RemoveVehiclesFromGeneratorsInArea(iPlayer.x - 45.0, iPlayer.y - 45.0, iPlayer.z - 15.0, iPlayer.x + 45.0, iPlayer.y + 45.0, iPlayer.z + 15.0);
-		SetGarbageTrucks(0)
-		SetRandomBoats(0)
+	while true do			
+		Citizen.Wait(0)										-- Every Frame!
+		if Config.Switch then								-- If switch = true
+			Citizen.Wait(0)									-- Every Frame!
+			for i = 0, 15 do								-- For all gangs and emergancy services.	
+				EnableDispatchService(i, Config.Dispatch)	-- Disable responding/dispatch.
+			end			
+			SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
+			SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)
+			SetRandomVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
+			SetParkedVehicleDensityMultiplierThisFrame((Config.ParkedX - Config.iPlayers) / Config.Divider)
+			SetScenarioPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider, (Config.PedestrianX - Config.iPlayers) / Config.Divider)
+			ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
+			RemoveVehiclesFromGeneratorsInArea(iPlayer.x - 45.0, iPlayer.y - 45.0, iPlayer.z - 15.0, iPlayer.x + 45.0, iPlayer.y + 45.0, iPlayer.z + 15.0);
+			SetGarbageTrucks(0)
+			SetRandomBoats(0)
+		end	
+	end
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(60000)
+		Clients()
+		Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Syncing Traffic. ')
 	end
 end)
 
