@@ -1,22 +1,17 @@
-# LosOce_TA
-Los Oceanic - Traffic Adjust, Automated deductions based on player count. [38.80% to 10.00%]
+# SyncT
+Traffic Sync : Traffic Adjust, Automated deductions based on player count | Client Side. [38.80% to 10.00%]
 
 
 ### Hypothosis
 
-Using Cron;
-Setting an event trigger every five minutes, 
-To issue a command for the client to get all active players,
-To deduct the overall AI population/density based on a player count.
-
+Every Minute the clients count how many people are in the server and all adjust how mant cars, peds and other things there are.
 
 ## Prerequisites
 
-* [LosOce_Cron](https://github.com/DK-DonnieKongy/LosOce_Cron) 
+Add it to your server.cfg
 
 ```
-start LosOce_Cron
-start LosOce_TA
+start SyncT
 ```
 
 ## The Config.lua
@@ -44,8 +39,3 @@ Note: Do not let the overall final number be below 0.0!
 ## License
 
 This project is licensed under the GNU v3.0 License - see the [LICENSE.md](LICENSE) file for details
-
-
-## Acknowledgments
-
-* [ESX-Org/cron](https://github.com/ESX-Org/cron) - All Contributers
