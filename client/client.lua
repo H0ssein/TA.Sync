@@ -1,4 +1,4 @@
---			Traffic Sync | Alter Traffic and Vechile Spawns					--
+--			Sync Traffic | Alter Traffic and Vechile Spawns					--
 --				By DK - 2019...	Dont forget your Bananas!					--
 ------------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ function Clients()
 
 	end
 
-	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Count '..Count)
+	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Counted '..Count)
 	
 	if (Count ~= nil) then
 		Config.iPlayers = (Count * Config.Static)
@@ -36,8 +36,8 @@ function Clients()
 
 	Wait(100)
 	Config.Switch = true
-	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Deductions '..Config.iPlayers)
-	Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Traffic now @  '..(Config.TrafficX - Config.iPlayers))
+	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Deductions '..Config.iPlayers)
+	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Traffic now @  '..(Config.TrafficX - Config.iPlayers))
 end
 
 ------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(60000)
 		Clients()
-		Citizen.Trace('	^0[^5Debug^0] TrafficS:Client :: Syncing Traffic. ')
+		Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Syncing Traffic. ')
 	end
 end)
 

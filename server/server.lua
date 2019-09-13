@@ -1,4 +1,4 @@
---			Traffic Sync | Alter Traffic and Vechile Spawns					--
+--			Sync Traffic | Alter Traffic and Vechile Spawns					--
 --				By DK - 2019...	Dont forget your Bananas!					--
 ------------------------------------------------------------------------------
 
