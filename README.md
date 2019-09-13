@@ -1,5 +1,5 @@
 # SyncT
-Traffic Sync : Traffic Adjust, Automated deductions based on player count | Client Side. [38.80% to 10.00%]
+Traffic Sync : Automated deductions based on player count, Client Sided. [38.80% to 10.00%]
 
 
 ### Hypothosis
