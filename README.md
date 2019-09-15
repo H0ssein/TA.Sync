@@ -1,5 +1,5 @@
-# SyncT
-Traffic Sync : Traffic Adjust, Automated deductions based on player count | Client Side. [38.80% to 10.00%]
+# TA.Sync
+TA.Sync : Automated deductions based on player count, Client Sided. [38.80% to 10.00%]
 
 
 ### Hypothosis
@@ -11,7 +11,7 @@ Every Minute the clients count how many people are in the server and all adjust 
 Add it to your server.cfg
 
 ```
-start SyncT
+start TA.Sync
 ```
 
 ## The Config.lua
@@ -23,18 +23,17 @@ To refine the traffic down to a manageable level, I have used **1000** as the di
 Based on this I wanted to start at around 40% normal density and scale it down to a manageable 10% when a server is full.
 
 ```
-Config.TrafficX     = 388   -- 100  -- Do not let the over all calculation 
-Config.PedestrianX  = 493   -- 205  -- make this 0 or below, or else you 
-Config.ParkedX      = 488   -- 200  -- will suffer a fate far worse 
-Config.Divider      = 1000  --      -- than having no bananas... RIP
-Config.iPlayers     = 0     --      -- See Client.Lua for the Calculation.
-Config.Static       = 2.25  --      -- I believe 2.25 will be ideal for 128 slots. (-288)
-Config.Dispatch     = false --      -- Or True???
+Config.TrafficX     = 388
+Config.PedestrianX  = 493
+Config.ParkedX      = 488
+Config.Divider      = 1000
+Config.iPlayers     = 0
+Config.Static       = 2.25
+Config.Dispatch     = false
 ```
 So in this case, *388* would become *0.388*.
 
 Note: Do not let the overall final number be below 0.0!
-
 
 ## License
 
