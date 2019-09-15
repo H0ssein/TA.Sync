@@ -22,22 +22,14 @@ function Clients()
 	Count = 0
 	Config.iPlayers = 0	
 	Config.Switch = false
-	
 	for _,v in ipairs(GetActivePlayers()) do
 		Count = Count + 1
-
 	end
-
-	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Counted '..Count)
-	
 	if (Count ~= nil) then
 		Config.iPlayers = (Count * Config.Static)
 	end
-
 	Wait(100)
 	Config.Switch = true
-	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Deductions '..Config.iPlayers)
-	Citizen.Trace('	^0[^5Debug^0] SyncT:Client :: Traffic now @  '..(Config.TrafficX - Config.iPlayers))
 end
 
 ------------------------------------------------------------------------------
@@ -57,11 +49,11 @@ Citizen.CreateThread(function()
 	
 	while true do			
 		Citizen.Wait(0)										-- Every Frame!
+		for i = 0, 15 do									-- For all gangs and emergancy services.	
+			EnableDispatchService(i, Config.Dispatch)		-- Disable responding/dispatch.
+		end		
 		if Config.Switch then								-- If switch = true
 			Citizen.Wait(0)									-- Every Frame!
-			for i = 0, 15 do								-- For all gangs and emergancy services.	
-				EnableDispatchService(i, Config.Dispatch)	-- Disable responding/dispatch.
-			end			
 			SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
 			SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)
 			SetRandomVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
