@@ -19,17 +19,14 @@
 ------------------------------------------------------------------------------
 
 function Clients()
-	Count = 0
-	Config.iPlayers = 0	
-	Config.Switch = false
+	local Count = 0
+	Config.iPlayers = Count
 	for _,v in ipairs(GetActivePlayers()) do
 		Count = Count + 1
 	end
 	if (Count ~= nil) then
 		Config.iPlayers = (Count * Config.Static)
 	end
-	Wait(100)
-	Config.Switch = true
 end
 
 ------------------------------------------------------------------------------
@@ -47,11 +44,11 @@ Citizen.CreateThread(function()
 	local iPlayerID = GetPlayerServerId()					-- Your Ped's ID.
 	DisablePlayerVehicleRewards(iPlayerID)					-- Call it once.
 	
-	while Config.Switch  do			
-		Citizen.Wait(0)										-- Every Frame!
+	while true do
+		Citizen.Wait(0)
 		for i = 0, 15 do									-- For all gangs and emergancy services.	
 			EnableDispatchService(i, Config.Dispatch)		-- Disable responding/dispatch.
-		end		
+		end
 		SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
 		SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)
 		SetRandomVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
@@ -60,13 +57,13 @@ Citizen.CreateThread(function()
 		ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
 		RemoveVehiclesFromGeneratorsInArea(iPlayer.x - 45.0, iPlayer.y - 45.0, iPlayer.z - 15.0, iPlayer.x + 45.0, iPlayer.y + 45.0, iPlayer.z + 15.0);
 		SetGarbageTrucks(0)
-		SetRandomBoats(0)
+		SetRandomBoats(0)	
 	end
 end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(60000)
+		Citizen.Wait(60000)		
 		Clients()
 	end
 end)
