@@ -42,6 +42,7 @@ end
 Citizen.CreateThread(function()
 	local iPlayer = GetEntityCoords(PlayerPedId())			-- Your Ped as an Entity. Vector3 (x,y,z)
 	DisablePlayerVehicleRewards(PlayerId())					-- Call it once.
+	SetAudioFlag("PoliceScannerDisabled", true)
 	
 	while true do
 		Citizen.Wait(0)
