@@ -56,8 +56,8 @@ Citizen.CreateThread(function()
 		SetScenarioPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider, (Config.PedestrianX - Config.iPlayers) / Config.Divider)
 		ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
 		RemoveVehiclesFromGeneratorsInArea(iPlayer.x - 45.0, iPlayer.y - 45.0, iPlayer.z - 15.0, iPlayer.x + 45.0, iPlayer.y + 45.0, iPlayer.z + 15.0);
-		SetGarbageTrucks(0)
-		SetRandomBoats(0)	
+		SetGarbageTrucks(false)
+		SetRandomBoats(true)	
 	end
 end)
 
@@ -66,6 +66,13 @@ Citizen.CreateThread(function()
 		Citizen.Wait(60000)		
 		Clients()
 	end
+end)
+
+Citizen.CreateThread(function()
+  SwitchTrainTrack(0, true)
+  SwitchTrainTrack(3, true)
+  N_0x21973bbf8d17edfa(0, 120000)
+  SetRandomTrains(true)
 end)
 
 ------------------------------------------------------------------------------
