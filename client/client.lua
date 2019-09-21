@@ -45,20 +45,26 @@ Citizen.CreateThread(function()
 	
 	while true do
 		Citizen.Wait(0)
+		
 		for i = 0, 20 do									-- For all gangs and emergancy services.	
 			EnableDispatchService(i, Config.Dispatch)		-- Disable responding/dispatch.
 		end
+		
+		if (Config.Wanted and GetPlayerWantedLevel(PlayerId()) > 0) then
+            SetPlayerWantedLevel(PlayerId(), 0, false)
+            SetPlayerWantedLevelNow(PlayerId(), false)
+        end
+		
 		SetVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
 		SetPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider)
 		SetRandomVehicleDensityMultiplierThisFrame((Config.TrafficX - Config.iPlayers) / Config.Divider)
 		SetParkedVehicleDensityMultiplierThisFrame((Config.ParkedX - Config.iPlayers) / Config.Divider)
 		SetScenarioPedDensityMultiplierThisFrame((Config.PedestrianX - Config.iPlayers) / Config.Divider, (Config.PedestrianX - Config.iPlayers) / Config.Divider)
-		ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
+
 		RemoveVehiclesFromGeneratorsInArea(iPlayer.x - 52.0, iPlayer.y - 52.0, iPlayer.z - 15.0, iPlayer.x + 52.0, iPlayer.y + 52.0, iPlayer.z + 15.0);
-		if (Config.Wanted and GetPlayerWantedLevel(PlayerId()) > 0) then
-            SetPlayerWantedLevel(PlayerId(), 0, false)
-            SetPlayerWantedLevelNow(PlayerId(), false)
-        end
+		
+		ClearAreaOfCops(iPlayer.x, iPlayer.y, iPlayer.z, 5000.0)
+		
 		SetGarbageTrucks(false)
 		SetRandomBoats(true)
 	end
