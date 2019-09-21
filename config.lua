@@ -10,6 +10,7 @@ Config.Divider 				= 1000
 Config.iPlayers				= 0
 Config.Static				= 2.25
 Config.Dispatch 			= false
+Config.Wanted				= false
 
 ------------------------------------------------------------------------------
 
