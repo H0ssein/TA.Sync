@@ -85,4 +85,12 @@ Citizen.CreateThread(function()
   SetRandomTrains(true)
 end)
 
+Citizen.CreateThread(function
+	if Config.VehicleBlacklist ~= nil then
+		for _,v in pairs(Config.VehicleBlacklist) do
+			SetVehicleModelIsSuppressed(v, true)
+		end
+	end
+end)
+
 ------------------------------------------------------------------------------

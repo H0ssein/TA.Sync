@@ -14,4 +14,8 @@ Config.Wanted				= false
 
 ------------------------------------------------------------------------------
 
-Config.VehicleBlacklist = {}
+Config.VehicleBlacklist = {
+	'rubble',
+	'biff',
+	'taco'
+}
